@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  server:
+    container_name: mpx-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    # Solo dejamos volúmenes de persistencia de DATOS, no de CÓDIGO
+    volumes:
+      - ./backend/logs:/app/logs
+      - ./backend/uploads:/app/uploads
+    secrets:
+      - token_secret # <--- El permiso para el token
+      - db_user      # <--- El permiso para la DB (aunque sea la misma red)
+      - db_password
+      - db_name
+    environment:
+      NODE_ENV: ${NODE_ENV:-production} # Por defecto es producción
+
+  frontend:
+    build:
+      context: ./frontend
+      target: production
+    ports:
+      - "8080:80"
+    depends_on:
+      - server
+
+secrets:
+  token_secret:
+    file: ./secrets/token_secret.txt
+  db_user:
+    file: ./secrets/db_user.txt
+  db_password:
+    file: ./secrets/db_password.txt
+  db_name:
+    file: ./secrets/db_name.txt
