@@ -13,7 +13,7 @@ function safeRead(path) {
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
-const MYSQL_HOST = process.env.MYSQL_HOST || 'localhost';
+const DB_HOST = process.env.DB_HOST || 'localhost';
 const DB_USER = safeRead('/run/secrets/db_user');
 const DB_PASSWORD = safeRead('/run/secrets/db_password');
 const DB_NAME = safeRead('/run/secrets/db_name');
@@ -24,7 +24,7 @@ const TOKEN_SECRET = safeRead('/run/secrets/token_secret');
 module.exports = {
     PORT,
     NODE_ENV,
-    MYSQL_HOST,
+    DB_HOST,
     DB_USER,
     DB_PASSWORD,
     DB_NAME,
