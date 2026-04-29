@@ -17,8 +17,11 @@ services:
       - db_user      # <--- El permiso para la DB (aunque sea la misma red)
       - db_password
       - db_name
+    networks:
+      - web_network
     environment:
-      NODE_ENV: ${NODE_ENV:-production} # Por defecto es producción
+      - NODE_ENV=${NODE_ENV:-production}
+      - DB_HOST=global-postgres # <--- CAMBIO 2: Definir el host de la Raspi
 
   frontend:
     build:
@@ -28,6 +31,13 @@ services:
       - "8080:80"
     depends_on:
       - server
+    networks:
+      - web_network
+
+
+networks:
+  web_network:
+    external: true
 
 secrets:
   token_secret:
