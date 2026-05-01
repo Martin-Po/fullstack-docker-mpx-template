@@ -53,7 +53,7 @@ export default function LoginForm() {
             <LockOutlinedIcon />
           </Avatar>
 
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} data-testid="login-form">
             <TextField
               margin="normal"
               required
