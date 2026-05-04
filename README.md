@@ -62,28 +62,7 @@ Backend (API Express): http://localhost:3000
 
 Base de Datos (PostgreSQL): localhost:5432
 
-📂 Estructura del Proyecto
-Plaintext
-fullstack-docker-mpx-template/
-├── frontend/                 # Aplicación React + Vite
-│   ├── src/
-│   │   ├── components/     # Componentes de UI (LoginForm, etc.)
-│   │   ├── context/        # Estados globales (AuthContext)
-│   │   ├── tests/          # Suite de pruebas unitarias y de integración
-│   │   └── utils/          # Utilidades y configuración de Logger
-│   ├── Dockerfile          # Configuración de imagen Frontend
-│   └── package.json
-├── backend/                 # API Node.js + Express
-│   ├── src/
-│   │   ├── controllers/    # Lógica de negocio
-│   │   └── config/         # Conexión a DB y variables
-│   │   └── Utils/          
-|   |       └── database/   # Scripts SQL y configuración de DB
-│   |       └── init.sql           # Script de inicialización (Tablas, Roles)
-│   ├── Dockerfile          # Configuración de imagen Backend
-│   └── package.json
-├── docker-compose.yml      # Orquestación de contenedores
-└── README.md
+
 🧪 Ejecutar las Pruebas (Testing)
 El frontend incluye una configuración robusta de Jest para validar la lógica y renderizado de los componentes (especialmente Material UI). Para correr la suite de pruebas:
 
