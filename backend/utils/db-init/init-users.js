@@ -18,7 +18,7 @@ async function initUsers(client) {
           apellido      VARCHAR(255) NOT NULL,
           password_hash VARCHAR(255) NOT NULL,
           role          VARCHAR(20) CHECK (role IN ('admin', 'user')) NOT NULL,
-          estado        VARCHAR(255) NOT NULL DEFAULT 'ACTIVO',
+          estado        INTEGER NOT NULL REFERENCES estados(id),
           fecha_alta    TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP, 
           fecha_baja    TIMESTAMPTZ DEFAULT NULL,
           token_version INTEGER DEFAULT 0
@@ -40,12 +40,12 @@ async function initUsers(client) {
       const userPassword = await bcrypt.hash('user456', 10);
 
       const queryInsert = `
-        INSERT INTO users (username, nombre, apellido, password_hash, role) 
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO users (username, nombre, apellido, password_hash, role, estado) 
+        VALUES ($1, $2, $3, $4, $5, $6)
       `;
 
-      await client.query(queryInsert, ['admin', 'Admin', 'System', adminPassword, 'admin']);
-      await client.query(queryInsert, ['user', 'Regular', 'User', userPassword, 'user']);
+      await client.query(queryInsert, ['admin', 'Admin', 'System', adminPassword, 'admin', 1]);
+      await client.query(queryInsert, ['user', 'Regular', 'User', userPassword, 'user', 1]);
 
       logger.info('✅ Usuarios semilla creados.');
     } else {

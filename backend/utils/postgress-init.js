@@ -1,7 +1,8 @@
 const config = require('./config');
 const { getDb } = require("./db");
 const logger = require('./logger');
-const {initUsers} = require('./db-init/init-users');
+const { initUsers } = require('./db-init/init-users');
+const { initEstados } = require('./db-init/init-estados');
 
 async function initializeDBIfEmpty() {
 
@@ -19,14 +20,22 @@ async function initializeDBIfEmpty() {
   let connection;
   try {
 
-      connection = await getDb();
+
+    const initSteps = [
+      { name: 'initEstados', fn: initEstados },
+      { name: 'initUsers', fn: initUsers },
+    ];
+
+    connection = await getDb();
 
 
+    for (const step of initSteps) {
       try {
-        await initUsers(connection);
+        await step.fn(connection);
       } catch (err) {
-        logger.error('initUsers ERROR:', err);
-      }   
+        logger.error(`${step.name} ERROR:`, err);
+      }
+    }
 
 
 
