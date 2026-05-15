@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon -L index.js",
     "start": "node index.js",
-    "test": "jest --verbose --runInBand --forceExit"
+    "test": "jest --verbose --runInBand --forceExit",
+    "db:prune": "node ./scripts/prune-db.js"
   },
   "keywords": [],
   "author": "",
